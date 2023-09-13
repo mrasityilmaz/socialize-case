@@ -16,6 +16,13 @@ extension MediaQueryExtension on BuildContext {
   double get highValue => height * 0.1;
 }
 
+extension BorderRadiusExtension on BuildContext {
+  BorderRadius get borderRadiusLow => BorderRadius.circular(lowValue);
+  BorderRadius get borderRadiusNormal => BorderRadius.circular(normalValue);
+  BorderRadius get borderRadiusMedium => BorderRadius.circular(mediumValue);
+  BorderRadius get borderRadiusHigh => BorderRadius.circular(highValue);
+}
+
 extension ThemeExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
   TextTheme get textTheme => theme.textTheme;

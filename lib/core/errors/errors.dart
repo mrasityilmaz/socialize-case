@@ -28,3 +28,10 @@ class UnExpectedFailure<T> extends Failure {
   final String? errorMessage;
   final T? data;
 }
+
+class FirebaseAuthFailure extends Failure {
+  FirebaseAuthFailure({
+    required this.errorMessage,
+  }) : super([errorMessage]);
+  final String errorMessage;
+}
