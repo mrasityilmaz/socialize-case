@@ -39,6 +39,11 @@ final class SignInViewModel extends ChangeNotifier with BusyAndErrorStateHelper 
     notifyListeners();
   }
 
+  void clearAll() {
+    emailController.clear();
+    passwordController.clear();
+  }
+
   ///
   /// Methods
   ///

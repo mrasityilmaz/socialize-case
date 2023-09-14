@@ -37,7 +37,8 @@ final class _SignInScreenBodyWidget extends StatelessWidget {
           onPressed: () async {
             await viewModel.login().then((value) {
               if (value.isRight()) {
-                GoRouterService.instance.goRouter.pushReplacementNamed(RouteNames.home.name);
+                viewModel.clearAll();
+                GoRouterService.instance.goRouter.pushReplacementNamed(RouteNames.main.name);
               } else {
                 print('Error: ${value.asLeft()}');
               }
@@ -65,6 +66,7 @@ final class _SignInScreenBodyWidget extends StatelessWidget {
                   style: context.textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w600, color: context.colors.primary, fontSize: 14),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
+                      viewModel.clearAll();
                       context.pushNamed(RouteNames.signUp.name);
                     },
                 ),

@@ -15,6 +15,8 @@ _$_UserDataModel _$$_UserDataModelFromJson(Map<String, dynamic> json) =>
       profileImageUrl: json['profileImageUrl'] as String? ??
           'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
       bio: json['bio'] as String?,
+      followersCount: json['followersCount'] as int? ?? 0,
+      followingCount: json['followingCount'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$$_UserDataModelToJson(_$_UserDataModel instance) =>
@@ -25,4 +27,6 @@ Map<String, dynamic> _$$_UserDataModelToJson(_$_UserDataModel instance) =>
       'username': instance.username,
       'profileImageUrl': instance.profileImageUrl,
       'bio': instance.bio,
+      'followersCount': instance.followersCount,
+      'followingCount': instance.followingCount,
     };

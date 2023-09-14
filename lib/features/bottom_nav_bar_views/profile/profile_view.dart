@@ -5,12 +5,13 @@ import 'package:my_coding_setup/core/enums/routes/routes_enum.dart';
 import 'package:my_coding_setup/features/components/widgets/buttons/custom_button.dart';
 import 'package:my_coding_setup/features/components/widgets/text/custom_text_widget.dart';
 
-final class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+final class ProfileView extends StatelessWidget {
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amber,
       body: SafeArea(
         child: Column(
           children: [

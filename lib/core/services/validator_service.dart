@@ -14,14 +14,11 @@ final class ValidatorService {
   }
 
   String? checkEmail(String? value) {
-    if (value != null && value.trim().length > 3 || value == null) {
-      if (value?.isNotEmpty == true && emailValid(value)) {
-        return null;
-      } else {
-        return 'Please enter a valid email';
-      }
+    if (value?.isNotEmpty == true && emailValid(value)) {
+      return null;
+    } else {
+      return 'Please enter a valid email';
     }
-    return null;
   }
 
   String? checkPassword(String? value) {

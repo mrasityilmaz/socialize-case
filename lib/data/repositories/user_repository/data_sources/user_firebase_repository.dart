@@ -17,7 +17,6 @@ import 'package:my_coding_setup/domain/repositories/user_repository/data_sources
 @LazySingleton(as: IUserRemoteRepository)
 class UserFirebaseRepository implements IUserRemoteRepository {
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
-  final CollectionReference<Map<String, dynamic>> _userCollection = FirebaseConstants.instance.userCollection;
 
   @override
   Future<DataModel<String>> uploadProfilePhoto({required File image}) async {
@@ -36,14 +35,45 @@ class UserFirebaseRepository implements IUserRemoteRepository {
   @override
   Future<DataModel<UserModel>> updateProfileData({required UserDataModel model}) async {
     try {
-      await _userCollection.doc(FirebaseAuth.instance.currentUser?.uid).set(
+      await FirebaseConstants.instance.userCollection.doc(FirebaseAuth.instance.currentUser?.uid).set(
         {
           'userDataModel': model.toJson()..removeWhere((key, value) => value == null),
-          'updatedAt': DateTime.now().toUtc(),
+          'updatedAt': DateTime.now().toUtc().millisecondsSinceEpoch,
         },
         SetOptions(merge: true),
       );
-      return Right(UserModel(userDataModel: model, createdAt: DateTime.now().toUtc(), updatedAt: DateTime.now().toUtc()));
+      return Right(UserModel(userDataModel: model, createdAt: DateTime.now().toUtc(), updatedAt: DateTime.now().toUtc(), searchOptions: const []));
+    } catch (e) {
+      return Left(ServerFailure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<DataModel<UserModel>> getUserProfile() async {
+    try {
+      final result = await FirebaseConstants.instance.userCollection.doc(FirebaseAuth.instance.currentUser!.uid).get();
+
+      if (result.exists && result.data() != null) {
+        return Right(UserModel.fromJson(result.data()!));
+      } else {
+        return Left(ServerFailure(errorMessage: 'User not found'));
+      }
+    } catch (e) {
+      return Left(ServerFailure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<DataModel<List<UserDataModel>>> searchUsers({required String query}) async {
+    try {
+      final result = await FirebaseConstants.instance.userCollection.where('searchOptions', arrayContainsAny: [query]).get();
+
+      if (result.docs.isNotEmpty) {
+        final List<UserDataModel> users = result.docs.map((e) => UserModel.fromJson(e.data())).toList().map((e) => e.userDataModel).toList();
+        return Right(users);
+      } else {
+        return Left(ServerFailure(errorMessage: 'User not found'));
+      }
     } catch (e) {
       return Left(ServerFailure(errorMessage: e.toString()));
     }

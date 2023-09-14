@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
@@ -44,11 +43,6 @@ class AuthFirebaseRepository implements IAuthRemoteRepository {
   Future<DataModel<UserCredential>> loginUser({required String email, required String password}) async {
     try {
       final registerResult = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-
-      if (registerResult.user?.uid != null) {
-        final fas = await FirebaseFirestore.instance.collection('users').doc(registerResult.user!.uid).get();
-        print(fas);
-      }
 
       return Right(registerResult);
     } on FirebaseAuthException catch (e) {

@@ -125,7 +125,6 @@ class CustomTextFieldWidget extends StatelessWidget {
                       SystemChannels.textInput.invokeMethod('TextInput.hide');
                     }
                   },
-                  autofocus: true,
                   autofillHints: autofillHints,
                   autocorrect: autoCorrect == true,
                   controller: controller,

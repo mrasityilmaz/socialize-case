@@ -152,7 +152,6 @@ class CustomTextFormFieldWidget extends StatelessWidget {
                             }
                             onSubmitted?.call(value);
                           },
-                          autofocus: true,
                           autofillHints: autofillHints,
                           autocorrect: autoCorrect == true,
                           controller: controller,

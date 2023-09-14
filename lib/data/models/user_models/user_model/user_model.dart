@@ -9,12 +9,13 @@ part 'user_model.g.dart';
 class UserModel extends Equatable with _$UserModel {
   const factory UserModel({
     required final UserDataModel userDataModel,
+    required final List<String> searchOptions,
     @Default([]) final List<String> followers,
     @Default([]) final List<String> following,
     @Default([]) final List<String> likedPosts,
     @Default([]) final List<String> savedPosts,
-    final DateTime? createdAt,
-    final DateTime? updatedAt,
+    @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) final DateTime? createdAt,
+    @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) final DateTime? updatedAt,
   }) = _UserModel;
 
   const UserModel._();
@@ -31,4 +32,19 @@ class UserModel extends Equatable with _$UserModel {
         createdAt,
         updatedAt,
       ];
+}
+
+DateTime _dateTimeFromTimestamp(dynamic json) {
+  if (json == null) {
+    return DateTime.now().toUtc();
+  } else if (json is String) {
+    return DateTime.parse(json).toUtc();
+  } else {
+    return (json as int?) != null ? DateTime.fromMillisecondsSinceEpoch(json!).toUtc() : DateTime.now().toUtc();
+  }
+}
+
+int? _dateTimeToTimestamp(DateTime? dateTime) {
+  if (dateTime == null) return null;
+  return dateTime.millisecondsSinceEpoch;
 }

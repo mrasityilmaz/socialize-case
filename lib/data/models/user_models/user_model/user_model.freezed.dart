@@ -21,11 +21,14 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserModel {
   UserDataModel get userDataModel => throw _privateConstructorUsedError;
+  List<String> get searchOptions => throw _privateConstructorUsedError;
   List<String> get followers => throw _privateConstructorUsedError;
   List<String> get following => throw _privateConstructorUsedError;
   List<String> get likedPosts => throw _privateConstructorUsedError;
   List<String> get savedPosts => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
   DateTime? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,11 +44,14 @@ abstract class $UserModelCopyWith<$Res> {
   @useResult
   $Res call(
       {UserDataModel userDataModel,
+      List<String> searchOptions,
       List<String> followers,
       List<String> following,
       List<String> likedPosts,
       List<String> savedPosts,
+      @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
       DateTime? createdAt,
+      @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
       DateTime? updatedAt});
 
   $UserDataModelCopyWith<$Res> get userDataModel;
@@ -65,6 +71,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @override
   $Res call({
     Object? userDataModel = null,
+    Object? searchOptions = null,
     Object? followers = null,
     Object? following = null,
     Object? likedPosts = null,
@@ -77,6 +84,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.userDataModel
           : userDataModel // ignore: cast_nullable_to_non_nullable
               as UserDataModel,
+      searchOptions: null == searchOptions
+          ? _value.searchOptions
+          : searchOptions // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       followers: null == followers
           ? _value.followers
           : followers // ignore: cast_nullable_to_non_nullable
@@ -122,11 +133,14 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
   @useResult
   $Res call(
       {UserDataModel userDataModel,
+      List<String> searchOptions,
       List<String> followers,
       List<String> following,
       List<String> likedPosts,
       List<String> savedPosts,
+      @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
       DateTime? createdAt,
+      @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
       DateTime? updatedAt});
 
   @override
@@ -145,6 +159,7 @@ class __$$_UserModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userDataModel = null,
+    Object? searchOptions = null,
     Object? followers = null,
     Object? following = null,
     Object? likedPosts = null,
@@ -157,6 +172,10 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.userDataModel
           : userDataModel // ignore: cast_nullable_to_non_nullable
               as UserDataModel,
+      searchOptions: null == searchOptions
+          ? _value._searchOptions
+          : searchOptions // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       followers: null == followers
           ? _value._followers
           : followers // ignore: cast_nullable_to_non_nullable
@@ -190,13 +209,17 @@ class __$$_UserModelCopyWithImpl<$Res>
 class _$_UserModel extends _UserModel {
   const _$_UserModel(
       {required this.userDataModel,
+      required final List<String> searchOptions,
       final List<String> followers = const [],
       final List<String> following = const [],
       final List<String> likedPosts = const [],
       final List<String> savedPosts = const [],
+      @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
       this.createdAt,
+      @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
       this.updatedAt})
-      : _followers = followers,
+      : _searchOptions = searchOptions,
+        _followers = followers,
         _following = following,
         _likedPosts = likedPosts,
         _savedPosts = savedPosts,
@@ -207,6 +230,14 @@ class _$_UserModel extends _UserModel {
 
   @override
   final UserDataModel userDataModel;
+  final List<String> _searchOptions;
+  @override
+  List<String> get searchOptions {
+    if (_searchOptions is EqualUnmodifiableListView) return _searchOptions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_searchOptions);
+  }
+
   final List<String> _followers;
   @override
   @JsonKey()
@@ -244,8 +275,10 @@ class _$_UserModel extends _UserModel {
   }
 
   @override
+  @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
   final DateTime? createdAt;
   @override
+  @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
   final DateTime? updatedAt;
 
   @JsonKey(ignore: true)
@@ -265,11 +298,14 @@ class _$_UserModel extends _UserModel {
 abstract class _UserModel extends UserModel {
   const factory _UserModel(
       {required final UserDataModel userDataModel,
+      required final List<String> searchOptions,
       final List<String> followers,
       final List<String> following,
       final List<String> likedPosts,
       final List<String> savedPosts,
+      @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
       final DateTime? createdAt,
+      @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
       final DateTime? updatedAt}) = _$_UserModel;
   const _UserModel._() : super._();
 
@@ -279,6 +315,8 @@ abstract class _UserModel extends UserModel {
   @override
   UserDataModel get userDataModel;
   @override
+  List<String> get searchOptions;
+  @override
   List<String> get followers;
   @override
   List<String> get following;
@@ -287,8 +325,10 @@ abstract class _UserModel extends UserModel {
   @override
   List<String> get savedPosts;
   @override
+  @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
   DateTime? get createdAt;
   @override
+  @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
   DateTime? get updatedAt;
   @override
   @JsonKey(ignore: true)

@@ -2,10 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_coding_setup/core/enums/routes/routes_enum.dart';
-import 'package:my_coding_setup/features/home/home_view.dart';
+import 'package:my_coding_setup/core/services/user_service.dart';
+import 'package:my_coding_setup/features/bottom_nav_bar_views/create_post/create_post_view.dart';
+import 'package:my_coding_setup/features/main/main_view.dart';
 import 'package:my_coding_setup/features/personal_information/personal_information_view.dart';
 import 'package:my_coding_setup/features/sign_in/sign_in_screen.dart';
 import 'package:my_coding_setup/features/sign_up/sign_up_screen.dart';
+import 'package:my_coding_setup/injection/injection_container.dart';
 
 final class GoRouterService {
   factory GoRouterService() => instance;
@@ -20,8 +23,8 @@ final class GoRouterService {
         path: RouteNames.signIn.path,
         builder: (context, state) => const SignInScreen(),
         redirect: (context, state) async {
-          if (FirebaseAuth.instance.currentUser != null) {
-            return RouteNames.home.path;
+          if (FirebaseAuth.instance.currentUser != null && locator<UserService>().userModel != null) {
+            return RouteNames.main.path;
           }
           return null;
         },
@@ -47,11 +50,19 @@ final class GoRouterService {
         },
       ),
       GoRoute(
-        path: RouteNames.home.path,
-        builder: (context, state) => const HomeView(),
-        name: RouteNames.home.name,
+        path: RouteNames.main.path,
+        builder: (context, state) => const MainView(),
+        name: RouteNames.main.name,
         pageBuilder: (context, state) {
-          return _pageBuilder(context, state, const HomeView());
+          return _pageBuilder(context, state, const MainView());
+        },
+      ),
+      GoRoute(
+        path: RouteNames.createPost.path,
+        builder: (context, state) => const CreatePostView(),
+        name: RouteNames.createPost.name,
+        pageBuilder: (context, state) {
+          return _pageBuilder(context, state, const CreatePostView());
         },
       ),
     ],

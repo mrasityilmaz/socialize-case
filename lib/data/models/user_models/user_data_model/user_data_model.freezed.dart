@@ -26,6 +26,8 @@ mixin _$UserDataModel {
   String? get username => throw _privateConstructorUsedError;
   String get profileImageUrl => throw _privateConstructorUsedError;
   String? get bio => throw _privateConstructorUsedError;
+  int? get followersCount => throw _privateConstructorUsedError;
+  int? get followingCount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +47,9 @@ abstract class $UserDataModelCopyWith<$Res> {
       String? fullname,
       String? username,
       String profileImageUrl,
-      String? bio});
+      String? bio,
+      int? followersCount,
+      int? followingCount});
 }
 
 /// @nodoc
@@ -67,6 +71,8 @@ class _$UserDataModelCopyWithImpl<$Res, $Val extends UserDataModel>
     Object? username = freezed,
     Object? profileImageUrl = null,
     Object? bio = freezed,
+    Object? followersCount = freezed,
+    Object? followingCount = freezed,
   }) {
     return _then(_value.copyWith(
       email: freezed == email
@@ -93,6 +99,14 @@ class _$UserDataModelCopyWithImpl<$Res, $Val extends UserDataModel>
           ? _value.bio
           : bio // ignore: cast_nullable_to_non_nullable
               as String?,
+      followersCount: freezed == followersCount
+          ? _value.followersCount
+          : followersCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      followingCount: freezed == followingCount
+          ? _value.followingCount
+          : followingCount // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -111,7 +125,9 @@ abstract class _$$_UserDataModelCopyWith<$Res>
       String? fullname,
       String? username,
       String profileImageUrl,
-      String? bio});
+      String? bio,
+      int? followersCount,
+      int? followingCount});
 }
 
 /// @nodoc
@@ -131,6 +147,8 @@ class __$$_UserDataModelCopyWithImpl<$Res>
     Object? username = freezed,
     Object? profileImageUrl = null,
     Object? bio = freezed,
+    Object? followersCount = freezed,
+    Object? followingCount = freezed,
   }) {
     return _then(_$_UserDataModel(
       email: freezed == email
@@ -157,6 +175,14 @@ class __$$_UserDataModelCopyWithImpl<$Res>
           ? _value.bio
           : bio // ignore: cast_nullable_to_non_nullable
               as String?,
+      followersCount: freezed == followersCount
+          ? _value.followersCount
+          : followersCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      followingCount: freezed == followingCount
+          ? _value.followingCount
+          : followingCount // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -171,7 +197,9 @@ class _$_UserDataModel extends _UserDataModel {
       this.username,
       this.profileImageUrl =
           'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-      this.bio})
+      this.bio,
+      this.followersCount = 0,
+      this.followingCount = 0})
       : super._();
 
   factory _$_UserDataModel.fromJson(Map<String, dynamic> json) =>
@@ -190,6 +218,12 @@ class _$_UserDataModel extends _UserDataModel {
   final String profileImageUrl;
   @override
   final String? bio;
+  @override
+  @JsonKey()
+  final int? followersCount;
+  @override
+  @JsonKey()
+  final int? followingCount;
 
   @JsonKey(ignore: true)
   @override
@@ -212,7 +246,9 @@ abstract class _UserDataModel extends UserDataModel {
       final String? fullname,
       final String? username,
       final String profileImageUrl,
-      final String? bio}) = _$_UserDataModel;
+      final String? bio,
+      final int? followersCount,
+      final int? followingCount}) = _$_UserDataModel;
   const _UserDataModel._() : super._();
 
   factory _UserDataModel.fromJson(Map<String, dynamic> json) =
@@ -230,6 +266,10 @@ abstract class _UserDataModel extends UserDataModel {
   String get profileImageUrl;
   @override
   String? get bio;
+  @override
+  int? get followersCount;
+  @override
+  int? get followingCount;
   @override
   @JsonKey(ignore: true)
   _$$_UserDataModelCopyWith<_$_UserDataModel> get copyWith =>

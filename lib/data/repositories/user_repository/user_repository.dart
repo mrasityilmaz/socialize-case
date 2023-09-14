@@ -58,4 +58,32 @@ class UserRepository implements IUserRepository {
       return Left(NetworkFailure());
     }
   }
+
+  @override
+  Future<DataModel<UserModel>> getUserProfile() async {
+    if (await networkInfo.isConnected) {
+      final result = await remoteDataSource.getUserProfile();
+
+      return result;
+    } else {
+      ///
+      /// I dont have local data source so I will return other options
+      ///
+      return Left(NetworkFailure());
+    }
+  }
+
+  @override
+  Future<DataModel<List<UserDataModel>>> searchUsers({required String query}) async {
+    if (await networkInfo.isConnected) {
+      final result = await remoteDataSource.searchUsers(query: query);
+
+      return result;
+    } else {
+      ///
+      /// I dont have local data source so I will return other options
+      ///
+      return Left(NetworkFailure());
+    }
+  }
 }

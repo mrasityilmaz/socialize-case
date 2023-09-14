@@ -28,7 +28,7 @@ final class PersonalInformation extends StatelessWidget {
             text: 'Continue to Our World',
             onPressed: isReadyForNextStep
                 ? () async {
-                    await viewModel.uploadAndNext().whenComplete(() => context.pushReplacementNamed(RouteNames.home.name));
+                    await viewModel.uploadAndNext().whenComplete(() => context.goNamed(RouteNames.signIn.name));
                   }
                 : null,
           ),

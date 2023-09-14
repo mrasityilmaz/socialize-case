@@ -82,6 +82,7 @@ final class _SignUpScreenBodyWidget extends StatelessWidget {
                   if (isValid == true) {
                     await viewModel.registerUser().then((value) {
                       if (value) {
+                        viewModel.clearAll();
                         context.pushReplacementNamed(RouteNames.personalInformation.name);
                       }
                     });
@@ -102,6 +103,7 @@ final class _SignUpScreenBodyWidget extends StatelessWidget {
                         style: context.textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w600, color: context.colors.primary, fontSize: 14),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
+                            viewModel.clearAll();
                             context.pop();
                           },
                       ),

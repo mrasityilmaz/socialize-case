@@ -20,4 +20,16 @@ class UserMockRepository implements IUserRemoteRepository {
     // TODO: implement uploadProfile
     throw UnimplementedError();
   }
+
+  @override
+  Future<DataModel<UserModel>> getUserProfile() {
+    // TODO: implement getUserProfile
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<DataModel<List<UserDataModel>>> searchUsers({required String query}) {
+    // TODO: implement searchUsers
+    throw UnimplementedError();
+  }
 }

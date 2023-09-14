@@ -1,7 +1,8 @@
 enum RouteNames {
   signIn('/'),
   signUp('/signUp'),
-  home('/home'),
+  main('/main'),
+  createPost('/createPost'),
   personalInformation('/personalInformation');
 
   const RouteNames(this.path);

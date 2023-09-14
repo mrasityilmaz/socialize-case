@@ -8,4 +8,6 @@ abstract class IUserRemoteRepository {
   Future<DataModel<String>> uploadProfilePhoto({required File image});
 
   Future<DataModel<UserModel>> updateProfileData({required UserDataModel model});
+  Future<DataModel<UserModel>> getUserProfile();
+  Future<DataModel<List<UserDataModel>>> searchUsers({required String query});
 }

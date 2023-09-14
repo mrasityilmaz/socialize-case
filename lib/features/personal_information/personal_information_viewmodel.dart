@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_coding_setup/core/mixin/viewmodel_mixins/viewmodel_helper_mixin.dart';
+import 'package:my_coding_setup/core/services/permission_service.dart';
 import 'package:my_coding_setup/data/models/user_models/user_data_model/user_data_model.dart';
 import 'package:my_coding_setup/domain/repositories/user_repository/i_auth_repository.dart';
 import 'package:my_coding_setup/injection/injection_container.dart';
@@ -47,11 +48,17 @@ final class PersonalInformationViewModel extends ChangeNotifier with BusyAndErro
   /// Pick and return File object
   ///
   Future<File?> _getImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final bool? isPermissionGranted = await PermissionService.instance.checkGalleryPermission();
 
-    if (image != null) {
-      return File(image.path);
+    if (isPermissionGranted == true) {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+      if (image != null) {
+        return File(image.path);
+      }
+      return null;
+    } else {
+      return null;
     }
-    return null;
   }
 }

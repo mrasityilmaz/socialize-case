@@ -6,11 +6,15 @@ import 'package:my_coding_setup/core/constants/firebase_constants.dart';
 import 'package:my_coding_setup/core/errors/errors.dart';
 import 'package:my_coding_setup/core/extensions/dartz_extension.dart';
 import 'package:my_coding_setup/core/platform/network_info.dart';
+import 'package:my_coding_setup/core/services/user_service.dart';
+import 'package:my_coding_setup/core/utils/string_to_search_options.dart';
 import 'package:my_coding_setup/data/models/user_models/user_data_model/user_data_model.dart';
 import 'package:my_coding_setup/data/models/user_models/user_model/user_model.dart';
 import 'package:my_coding_setup/domain/repositories/auth_repository/data_sources/ilocal_repository.dart';
 import 'package:my_coding_setup/domain/repositories/auth_repository/data_sources/iremote_repository.dart';
 import 'package:my_coding_setup/domain/repositories/auth_repository/i_auth_repository.dart';
+import 'package:my_coding_setup/domain/repositories/user_repository/i_auth_repository.dart';
+import 'package:my_coding_setup/injection/injection_container.dart';
 
 @LazySingleton(as: IAuthRepository)
 class AuthRepository implements IAuthRepository {
@@ -40,6 +44,7 @@ class AuthRepository implements IAuthRepository {
         try {
           await FirebaseConstants.instance.userCollection.doc(result.asRight().user!.uid).set(
                 UserModel(
+                  searchOptions: [...StringToSearchOptions.instance.convert(username), ...StringToSearchOptions.instance.convert(fullname)],
                   userDataModel: UserDataModel(
                     bio: '',
                     email: email,
@@ -68,7 +73,17 @@ class AuthRepository implements IAuthRepository {
   @override
   Future<DataModel<UserCredential>> loginUser({required String email, required String password}) async {
     if (await networkInfo.isConnected) {
-      return await remoteDataSource.loginUser(email: email, password: password);
+      final result = await remoteDataSource.loginUser(email: email, password: password);
+      if (result.isRight()) {
+        await locator<IUserRepository>().getUserProfile().then((value) async {
+          if (value.isRight()) {
+            locator<UserService>().setUserModel(value.asRight());
+            await FirebaseAuth.instance.currentUser?.updatePhotoURL(value.asRight().userDataModel.profileImageUrl);
+          }
+        });
+      }
+
+      return result;
     } else {
       ///
       /// I dont have local data source so I will return other options

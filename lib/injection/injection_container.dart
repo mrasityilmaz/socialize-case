@@ -2,8 +2,10 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:my_coding_setup/core/extensions/list_extension.dart';
 import 'package:my_coding_setup/data/repositories/auth_repository/data_sources/auth_hive_repository.dart';
+import 'package:my_coding_setup/data/repositories/post_repository/data_sources/post_hive_repository.dart';
 import 'package:my_coding_setup/data/repositories/user_repository/data_sources/user_hive_repository.dart';
 import 'package:my_coding_setup/domain/repositories/auth_repository/data_sources/ilocal_repository.dart';
+import 'package:my_coding_setup/domain/repositories/post_repository/data_sources/ilocal_repository.dart';
 import 'package:my_coding_setup/domain/repositories/user_repository/data_sources/ilocal_repository.dart';
 import 'package:my_coding_setup/injection/injection_container.config.dart';
 
@@ -39,6 +41,7 @@ Future<void> configureDependencies({String? defaultEnv}) async {
   ///
   await _initSource<IAuthLocalRepository>(source: AuthHiveRepository());
   await _initSource<IUserLocalRepository>(source: UserHiveRepository());
+  await _initSource<IPostLocalRepository>(source: PostHiveRepository());
 
   $initGetIt(
     locator,

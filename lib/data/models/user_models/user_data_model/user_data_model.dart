@@ -13,6 +13,8 @@ class UserDataModel extends Equatable with _$UserDataModel {
     final String? username,
     @Default('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png') final String profileImageUrl,
     final String? bio,
+    @Default(0) final int? followersCount,
+    @Default(0) final int? followingCount,
   }) = _UserDataModel;
 
   const UserDataModel._();
