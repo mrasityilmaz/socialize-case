@@ -14,8 +14,9 @@
 
 
 
-https://github.com/mrasityilmaz/socialize-case/assets/81583706/dc4e6178-2f34-413a-860c-f2928dfd64e6
 
+
+https://github.com/mrasityilmaz/socialize-case/assets/81583706/9dcb9c6d-a968-44e3-93d2-8616e5001c30
 
 
 
