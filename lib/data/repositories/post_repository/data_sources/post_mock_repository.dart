@@ -49,4 +49,10 @@ class PostMockRepository implements IPostRemoteRepository {
     // TODO: implement getLikedOrSavedPosts
     throw UnimplementedError();
   }
+
+  @override
+  Future<DataModel<List<PostModel>>> getMyPosts({required int limit, PostModel? lastPostModel}) {
+    // TODO: implement getMyPosts
+    throw UnimplementedError();
+  }
 }

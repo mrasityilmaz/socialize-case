@@ -7,6 +7,7 @@ import 'package:my_coding_setup/core/extensions/context_extension.dart';
 import 'package:my_coding_setup/core/extensions/dartz_extension.dart';
 import 'package:my_coding_setup/features/bottom_nav_bar_views/create_post/create_post_viewmodel.dart';
 import 'package:my_coding_setup/features/bottom_nav_bar_views/home/home_viewmodel.dart';
+import 'package:my_coding_setup/features/bottom_nav_bar_views/profile/profile_viewmodel.dart';
 import 'package:my_coding_setup/features/components/base_viewmodel_builder/base_viewmodel_builder.dart';
 import 'package:my_coding_setup/features/components/widgets/buttons/custom_button.dart';
 import 'package:my_coding_setup/features/components/widgets/text/custom_text_widget.dart';
@@ -46,6 +47,8 @@ final class CreatePostView extends StatelessWidget {
                       if (value.isRight()) {
                         debugPrint('Post created');
                         context.read<HomeViewModel>().addNewPost(value.asRight());
+                        context.read<ProfileViewModel>().addPostToList(value.asRight());
+                        viewModel.clearAll();
                         context.pop();
                       } else {
                         debugPrint('Post not created ${value.asLeft()}');
@@ -60,8 +63,8 @@ final class CreatePostView extends StatelessWidget {
         child: SafeArea(
           child: Padding(
             padding: context.paddingNormalHorizontal * 1.5,
-            child: Column(
-              // physics: const ClampingScrollPhysics(),
+            child: ListView(
+              physics: const ClampingScrollPhysics(),
               children: [
                 const Center(child: _PostPhotoWidget()),
                 SizedBox(height: context.normalValue),

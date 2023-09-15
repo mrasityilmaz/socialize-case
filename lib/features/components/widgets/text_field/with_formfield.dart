@@ -8,6 +8,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
     required this.controller,
     required this.hintText,
     required this.validator,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
     super.key,
     this.autofillHints,
     this.textStyle = CustomTextStyleEnum.s15w500,
@@ -48,6 +49,7 @@ class CustomTextFormFieldWidget extends StatelessWidget {
     this.textCapitalization,
   });
 
+  final AutovalidateMode autovalidateMode;
   final Iterable<String>? autofillHints;
 
   final TextEditingController controller;

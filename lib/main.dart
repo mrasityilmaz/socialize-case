@@ -8,7 +8,9 @@ import 'package:my_coding_setup/core/services/user_service.dart';
 import 'package:my_coding_setup/features/bottom_nav_bar_views/create_post/create_post_viewmodel.dart';
 import 'package:my_coding_setup/features/bottom_nav_bar_views/home/home_viewmodel.dart';
 import 'package:my_coding_setup/features/bottom_nav_bar_views/likes_and_saves/likes_and_saves_viewmodel.dart';
+import 'package:my_coding_setup/features/bottom_nav_bar_views/profile/profile_viewmodel.dart';
 import 'package:my_coding_setup/features/bottom_nav_bar_views/search/search_viewmodel.dart';
+import 'package:my_coding_setup/features/edit_profile/edit_profile_viewmodel.dart';
 import 'package:my_coding_setup/features/main/main_viewmodel.dart';
 import 'package:my_coding_setup/features/personal_information/personal_information_viewmodel.dart';
 import 'package:my_coding_setup/features/sign_in/sign_in_viewmodel.dart';
@@ -41,6 +43,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => PersonalInformationViewModel()),
         ChangeNotifierProvider(create: (_) => MainViewModel()),
         ChangeNotifierProvider(create: (_) => CreatePostViewModel()),
+        ChangeNotifierProvider(create: (_) => EditProfileViewModel()),
         ChangeNotifierProvider(
           create: (_) => HomeViewModel(),
         ),
@@ -49,6 +52,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => LikesAndSavesViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ProfileViewModel(),
         ),
         ChangeNotifierProvider(
           create: (_) => UserService(),

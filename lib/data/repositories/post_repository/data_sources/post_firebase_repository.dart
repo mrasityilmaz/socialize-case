@@ -57,17 +57,18 @@ class PostFirebaseRepository implements IPostRemoteRepository {
       List<PostModel?> postList = List.empty(growable: true);
 
       if (lastPostModel != null) {
-        postList = await FirebaseConstants.instance.postCollection.orderBy('createdAt', descending: true).startAfter([lastPostModel]).limit(limit).get().then(
-              (value) {
-                return value.docs.map((e) {
-                  if (PostModel.isOkey(e.data())) {
-                    return PostModel.fromJson(e.data());
-                  } else {
-                    return null;
-                  }
-                }).toList();
-              },
-            );
+        final DocumentSnapshot last = await FirebaseConstants.instance.postCollection.doc(lastPostModel.id).get();
+        postList = await FirebaseConstants.instance.postCollection.orderBy('createdAt', descending: true).startAfterDocument(last).limit(limit).get().then(
+          (value) {
+            return value.docs.map((e) {
+              if (PostModel.isOkey(e.data())) {
+                return PostModel.fromJson(e.data());
+              } else {
+                return null;
+              }
+            }).toList();
+          },
+        );
       } else {
         postList = await FirebaseConstants.instance.postCollection.orderBy('createdAt', descending: true).limit(limit).get().then(
           (value) {
@@ -175,17 +176,18 @@ class PostFirebaseRepository implements IPostRemoteRepository {
       List<PostModel?> postList = List.empty(growable: true);
 
       if (lastPostModel != null) {
-        postList = await FirebaseConstants.instance.postCollection.where(FieldPath.documentId, whereIn: likedOrSavedPosts).startAfter([lastPostModel]).limit(limit).get().then(
-              (value) {
-                return value.docs.map((e) {
-                  if (PostModel.isOkey(e.data())) {
-                    return PostModel.fromJson(e.data());
-                  } else {
-                    return null;
-                  }
-                }).toList();
-              },
-            );
+        final DocumentSnapshot last = await FirebaseConstants.instance.postCollection.doc(lastPostModel.id).get();
+        postList = await FirebaseConstants.instance.postCollection.where(FieldPath.documentId, whereIn: likedOrSavedPosts).startAfterDocument(last).limit(limit).get().then(
+          (value) {
+            return value.docs.map((e) {
+              if (PostModel.isOkey(e.data())) {
+                return PostModel.fromJson(e.data());
+              } else {
+                return null;
+              }
+            }).toList();
+          },
+        );
       } else {
         postList = await FirebaseConstants.instance.postCollection.where(FieldPath.documentId, whereIn: likedOrSavedPosts).limit(limit).get().then(
           (value) {
@@ -198,6 +200,28 @@ class PostFirebaseRepository implements IPostRemoteRepository {
             }).toList();
           },
         );
+      }
+
+      return Right(postList.where((element) => element != null).cast<PostModel>().toList());
+    } catch (e) {
+      return Left(ServerFailure(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<DataModel<List<PostModel>>> getMyPosts({required int limit, PostModel? lastPostModel}) async {
+    try {
+      List<PostModel?> postList = List.empty(growable: true);
+      final result = await FirebaseConstants.instance.postCollection.where('userId', isEqualTo: locator<UserService>().userModel?.userDataModel.userId).get();
+
+      if (result.docs.isNotEmpty) {
+        postList = result.docs.map((e) {
+          if (PostModel.isOkey(e.data())) {
+            return PostModel.fromJson(e.data());
+          } else {
+            return null;
+          }
+        }).toList();
       }
 
       return Right(postList.where((element) => element != null).cast<PostModel>().toList());

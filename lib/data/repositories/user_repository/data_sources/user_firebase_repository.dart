@@ -42,7 +42,31 @@ class UserFirebaseRepository implements IUserRemoteRepository {
         },
         SetOptions(merge: true),
       );
-      return Right(UserModel(userDataModel: model, createdAt: DateTime.now().toUtc(), updatedAt: DateTime.now().toUtc(), searchOptions: const []));
+
+      await FirebaseConstants.instance.postCollection.where('userId', isEqualTo: FirebaseAuth.instance.currentUser?.uid).get().then(
+        (value) {
+          if (value.docs.isNotEmpty) {
+            value.docs.forEach((element) async {
+              await element.reference.set(
+                {
+                  if (model.username?.isNotEmpty == true) 'userName': model.username,
+                  if (model.profileImageUrl.isNotEmpty) 'userImageUrl': model.profileImageUrl,
+                },
+                SetOptions(merge: true),
+              );
+            });
+          }
+        },
+      );
+
+      return Right(
+        UserModel(
+          userDataModel: model,
+          createdAt: DateTime.now().toUtc(),
+          updatedAt: DateTime.now().toUtc(),
+          searchOptions: const [],
+        ),
+      );
     } catch (e) {
       return Left(ServerFailure(errorMessage: e.toString()));
     }

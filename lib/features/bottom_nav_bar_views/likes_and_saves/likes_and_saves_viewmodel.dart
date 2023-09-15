@@ -7,7 +7,11 @@ import 'package:my_coding_setup/injection/injection_container.dart';
 final class LikesAndSavesViewModel extends ChangeNotifier with BusyAndErrorStateHelper {
   LikesAndSavesViewModel();
 
-  final int _limit = 20;
+  final int _limit = 2;
+  int _page = 0;
+  final UniqueKey _refreshIndicatorKey = UniqueKey();
+
+  UniqueKey get refreshIndicatorKey => _refreshIndicatorKey;
 
   List<PostModel> _posts = List.empty(growable: true);
 
@@ -15,6 +19,22 @@ final class LikesAndSavesViewModel extends ChangeNotifier with BusyAndErrorState
 
   void setPostList(List<PostModel> value) {
     _posts = value;
+    notifyListeners();
+  }
+
+  Future<void> loadMore() async {
+    await runBusyFuture(
+      _getPosts(),
+      busyObject: _refreshIndicatorKey,
+    );
+    notifyListeners();
+  }
+
+  Future<void> refresh() async {
+    _page = 0;
+    _posts.clear();
+
+    await _getPosts(clear: true);
     notifyListeners();
   }
 
@@ -27,14 +47,23 @@ final class LikesAndSavesViewModel extends ChangeNotifier with BusyAndErrorState
     notifyListeners();
   }
 
-  Future<void> _getPosts() async {
+  Future<void> _getPosts({bool clear = false}) async {
+    if (_page > (_posts.length ~/ _limit) && clear == false) {
+      return;
+    }
     final list = await locator<IPostRepository>().getLikedOrSavedPosts(limit: _limit, lastPostModel: _posts.isNotEmpty ? _posts.last : null);
     final clearList = list.getOrElse(() => []);
 
     if (list.isRight()) {
-      _posts = clearList;
+      if (clear) {
+        _posts = clearList;
+      } else {
+        _posts.addAll(clearList);
+      }
 
-      if (_posts.length % _limit == 0 && _posts.isNotEmpty) {}
+      if (_posts.length % _limit == 0 && _posts.isNotEmpty) {
+        _page++;
+      }
     }
   }
 

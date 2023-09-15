@@ -6,11 +6,13 @@ import 'package:injectable/injectable.dart';
 import 'package:my_coding_setup/core/errors/errors.dart';
 import 'package:my_coding_setup/core/extensions/dartz_extension.dart';
 import 'package:my_coding_setup/core/platform/network_info.dart';
+import 'package:my_coding_setup/core/services/user_service.dart';
 import 'package:my_coding_setup/data/models/user_models/user_data_model/user_data_model.dart';
 import 'package:my_coding_setup/data/models/user_models/user_model/user_model.dart';
 import 'package:my_coding_setup/domain/repositories/user_repository/data_sources/ilocal_repository.dart';
 import 'package:my_coding_setup/domain/repositories/user_repository/data_sources/iremote_repository.dart';
 import 'package:my_coding_setup/domain/repositories/user_repository/i_auth_repository.dart';
+import 'package:my_coding_setup/injection/injection_container.dart';
 
 @LazySingleton(as: IUserRepository)
 class UserRepository implements IUserRepository {
@@ -34,6 +36,14 @@ class UserRepository implements IUserRepository {
             profileImageUrl: result.asRight(),
           ),
         );
+
+        locator<UserService>().setUserModel(
+          locator<UserService>().userModel?.copyWith(
+                userDataModel: locator<UserService>().userModel!.userDataModel.copyWith(
+                      profileImageUrl: result.asRight(),
+                    ),
+              ),
+        );
       }
 
       return result;
@@ -49,6 +59,18 @@ class UserRepository implements IUserRepository {
   Future<DataModel<UserModel>> updateProfileData({required UserDataModel model}) async {
     if (await networkInfo.isConnected) {
       final result = await remoteDataSource.updateProfileData(model: model);
+
+      if (result.isRight()) {
+        locator<UserService>().setUserModel(
+          locator<UserService>().userModel?.copyWith(
+                userDataModel: locator<UserService>().userModel!.userDataModel.copyWith(
+                      bio: result.asRight().userDataModel.bio,
+                      fullname: result.asRight().userDataModel.fullname,
+                      username: result.asRight().userDataModel.username,
+                    ),
+              ),
+        );
+      }
 
       return result;
     } else {

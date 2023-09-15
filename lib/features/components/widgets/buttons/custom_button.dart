@@ -3,7 +3,7 @@ import 'package:my_coding_setup/core/enums/custom_text_style_enum/text_style_enu
 import 'package:my_coding_setup/core/extensions/context_extension.dart';
 
 final class CustomButtonWidget extends StatelessWidget {
-  const CustomButtonWidget({super.key, this.onPressed, this.child, this.buttonColor, this.textColor, this.text, this.textStyle, this.isExpanded = true})
+  const CustomButtonWidget({super.key, this.onPressed, this.child, this.buttonColor, this.textColor, this.text, this.textStyle, this.isExpanded = true, this.size})
       : assert(child != null || text != null, 'You must provide either child or text');
   final void Function()? onPressed;
   final CustomTextStyleEnum? textStyle;
@@ -12,6 +12,7 @@ final class CustomButtonWidget extends StatelessWidget {
   final Color? buttonColor;
   final Color? textColor;
   final bool isExpanded;
+  final Size? size;
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +24,11 @@ final class CustomButtonWidget extends StatelessWidget {
               onPressed: onPressed,
               style: ElevatedButton.styleFrom(
                 elevation: 0,
-                fixedSize: const Size(kMinInteractiveDimension, kMinInteractiveDimension * .9),
+                fixedSize: size ?? const Size(kMinInteractiveDimension, kMinInteractiveDimension * .9),
                 backgroundColor: buttonColor ?? context.theme.primaryColor,
-                minimumSize: const Size.fromHeight(kMinInteractiveDimension * .9),
+                minimumSize: size ?? const Size.fromHeight(kMinInteractiveDimension * .9),
                 shape: RoundedRectangleBorder(borderRadius: context.borderRadiusLow),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
               child: child ??
                   Text(
@@ -46,10 +48,11 @@ final class CustomButtonWidget extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          fixedSize: const Size(kMinInteractiveDimension, kMinInteractiveDimension * .9),
-          minimumSize: const Size.fromHeight(kMinInteractiveDimension * .9),
+          fixedSize: size ?? const Size(kMinInteractiveDimension, kMinInteractiveDimension * .9),
+          minimumSize: size ?? const Size.fromHeight(kMinInteractiveDimension * .9),
           backgroundColor: buttonColor ?? context.theme.primaryColor,
           shape: RoundedRectangleBorder(borderRadius: context.borderRadiusLow),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
         child: child ??
             Text(

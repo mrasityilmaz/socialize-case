@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:my_coding_setup/core/extensions/context_extension.dart';
 import 'package:my_coding_setup/core/mixin/viewmodel_mixins/viewmodel_helper_mixin.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +32,9 @@ class _CustomViewModelBuilderState<T extends BusyAndErrorStateHelper> extends St
   }
 
   Future<void> _onReady() async {
-    await widget.onViewModelReady?.call();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await widget.onViewModelReady?.call();
+    });
   }
 
   @override
@@ -44,7 +47,17 @@ class _CustomViewModelBuilderState<T extends BusyAndErrorStateHelper> extends St
         if (context.select<T, bool>((value) {
           return value.isBusy;
         })) ...[
-          Center(child: widget.circularProgressIndicator ?? const CircularProgressIndicator.adaptive()),
+          Center(
+            child: Container(
+              decoration: BoxDecoration(color: context.colors.primary, borderRadius: context.borderRadiusLow),
+              height: kMinInteractiveDimension,
+              width: kMinInteractiveDimension,
+              child: widget.circularProgressIndicator ??
+                  const CircularProgressIndicator.adaptive(
+                    backgroundColor: Colors.white,
+                  ),
+            ),
+          ),
         ],
       ],
     );

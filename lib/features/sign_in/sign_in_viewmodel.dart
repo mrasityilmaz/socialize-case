@@ -50,12 +50,7 @@ final class SignInViewModel extends ChangeNotifier with BusyAndErrorStateHelper 
 
   Future<DataModel<UserCredential>> login() async {
     final result = await runBusyFuture(
-      Future.delayed(
-        const Duration(seconds: 2),
-        () async {
-          return _authRepository.loginUser(email: emailController.text.trim(), password: passwordController.text.trim());
-        },
-      ),
+      _authRepository.loginUser(email: emailController.text.trim(), password: passwordController.text.trim()),
     );
 
     return result;

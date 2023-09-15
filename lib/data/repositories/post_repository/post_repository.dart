@@ -118,4 +118,18 @@ class PostRepository implements IPostRepository {
       return Left(NetworkFailure());
     }
   }
+
+  @override
+  Future<DataModel<List<PostModel>>> getMyPosts({required int limit, PostModel? lastPostModel}) async {
+    if (await networkInfo.isConnected) {
+      final result = await remoteDataSource.getMyPosts(limit: limit, lastPostModel: lastPostModel);
+
+      return result;
+    } else {
+      ///
+      /// I dont have local data source so I will return other options
+      ///
+      return Left(NetworkFailure());
+    }
+  }
 }

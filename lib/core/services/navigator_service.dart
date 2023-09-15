@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_coding_setup/core/enums/routes/routes_enum.dart';
 import 'package:my_coding_setup/core/services/user_service.dart';
 import 'package:my_coding_setup/features/bottom_nav_bar_views/create_post/create_post_view.dart';
+import 'package:my_coding_setup/features/edit_profile/edit_profile_view.dart';
 import 'package:my_coding_setup/features/main/main_view.dart';
 import 'package:my_coding_setup/features/personal_information/personal_information_view.dart';
 import 'package:my_coding_setup/features/sign_in/sign_in_screen.dart';
@@ -63,6 +64,14 @@ final class GoRouterService {
         name: RouteNames.createPost.name,
         pageBuilder: (context, state) {
           return _pageBuilder(context, state, const CreatePostView());
+        },
+      ),
+      GoRoute(
+        path: RouteNames.editProfile.path,
+        builder: (context, state) => const EditProfileView(),
+        name: RouteNames.editProfile.name,
+        pageBuilder: (context, state) {
+          return _pageBuilder(context, state, const EditProfileView());
         },
       ),
     ],

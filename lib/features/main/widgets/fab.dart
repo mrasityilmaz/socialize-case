@@ -20,7 +20,7 @@ final class CustomFloatingActionButton extends StatelessWidget {
           GoRouterService.instance.goRouter.pushNamed(RouteNames.createPost.name);
         },
         backgroundColor: context.colors.primary,
-        elevation: 1,
+        elevation: 0,
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(color: context.colors.background, width: 2),
