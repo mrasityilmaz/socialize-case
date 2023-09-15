@@ -1,4 +1,28 @@
-# My Coding Setup - for Flutter Clean Arch.
+# Socialize Case Study - Provider 
+
+#### Project Images
+
+<img width="200" heigth="450" alt="fi" src="https://github.com/mrasityilmaz/socialize-case/assets/81583706/17e93fed-1613-4387-8ec5-89718d28786a">
+<img width="200" heigth="450" alt="fi" src="https://github.com/mrasityilmaz/socialize-case/assets/81583706/435b5c11-7a32-4f6b-8d03-3dbde634c55e">
+<img width="200" heigth="450" alt="fi" src="https://github.com/mrasityilmaz/socialize-case/assets/81583706/73624934-9610-476d-b9de-de02af935c3b">
+<img width="200" heigth="450" alt="fi" src="https://github.com/mrasityilmaz/socialize-case/assets/81583706/274e313f-f63b-434d-95e8-69b405cce75e">
+<img width="200" heigth="450" alt="fi" src="https://github.com/mrasityilmaz/socialize-case/assets/81583706/8d317262-fea5-4705-8b70-057cab5932e9">
+<img width="200" heigth="450" alt="fi" src="https://github.com/mrasityilmaz/socialize-case/assets/81583706/f8c8b9eb-30ab-4206-aeb7-1841b5f81068">
+<img width="200" heigth="450" alt="fi" src="https://github.com/mrasityilmaz/socialize-case/assets/81583706/f8533494-2d02-4620-8e91-e148d0c16995">
+
+
+
+
+
+https://github.com/mrasityilmaz/socialize-case/assets/81583706/dc4e6178-2f34-413a-860c-f2928dfd64e6
+
+
+
+
+
+
+
+
 
 _This repository created for development starter pack._
 ### Requirements: 
@@ -9,7 +33,7 @@ _This repository created for development starter pack._
 _Also includes:_
  -  [get_it] - DI 
  -  [injectable] - Generator for get_it
-  - [stacked] - MVVM-State Management
+  - [provider] - MVVM-State Management
  -  [equatable] - Data Equatability
  -  [envied] - Secure Api keys
  -  [rest_api_package] - Network
@@ -59,7 +83,7 @@ The Injection Container is not generated yet. You should generate it.
 
    [get_it]: <https://pub.dev/packages/get_it>
    [injectable]: <https://pub.dev/packages/injectable>
-   [stacked]: <https://pub.dev/packages/stacked>
+   [provider]: <https://pub.dev/packages/provider>
    [equatable]: <https://pub.dev/packages/equatable>
    [envied]: <https://pub.dev/packages/envied>
    [rest_api_package]: <https://github.com/mrasityilmaz/rest_api_package.git>
