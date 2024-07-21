@@ -1,6 +1,7 @@
 # Socialize Case Study - Provider 
 
 #### Project Images
+![ss](https://github.com/mrasityilmaz/socialize-case/blob/main/preview.png)
 
 <img width="200" heigth="450" alt="fi" src="https://github.com/mrasityilmaz/socialize-case/assets/81583706/17e93fed-1613-4387-8ec5-89718d28786a">
 <img width="200" heigth="450" alt="fi" src="https://github.com/mrasityilmaz/socialize-case/assets/81583706/435b5c11-7a32-4f6b-8d03-3dbde634c55e">
